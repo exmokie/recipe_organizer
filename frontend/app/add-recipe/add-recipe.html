@@ -1,5 +1,5 @@
 <label>Recipe Name</label>
-<input ng model ="recipe.name">
+<input ng-model ="recipe.name">
 
 <br>
 <label>Recipe Directions</label>
@@ -10,4 +10,4 @@
 <textarea ng-model="recipe.description"></textarea>
 
 <br>
-<button>Save Recipe</button>
+<button ng-click="addRecipe()">Save Recipe</button>

@@ -12,6 +12,8 @@ angular.module('myApp.recipeDetail', ['ngRoute'])
     .controller('RecipeDetailCtrl', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
         $scope.recipeId = $routeParams.recipeId;
 
+        $scope.editing = false
+
         Restangular.one('recipes', $scope.recipeId).customGET().then(function (recipe) {
             $scope.recipe = recipe;
         });
@@ -25,6 +27,14 @@ angular.module('myApp.recipeDetail', ['ngRoute'])
                         alert("There was a problem deleting the recipe! :(")
                     });
             }
-
         };
+
+        $scope.saveEditedRecipe = function () {
+            Restangular.one('recipes', $scope.recipeId).customPUT($scope.recipe).then(function () {
+                alert("Your recipe was successfully updated!");
+                $scope.editing = false;
+            }, function () {
+                alert("Something went wrong updating the recipe...");
+            });
+        }
     }]);

@@ -11,6 +11,11 @@ angular.module('myApp.addRecipe', ['ngRoute'])
 
     .controller('AddRecipeCtrl', ['$scope', 'Restangular', function ($scope, Restangular) {
         $scope.addRecipe = function () {
-            Restangular.all()
-        }
+            Restangular.all('add-recipe').customPOST($scope.recipe).then(function (recipe) {
+                alert("Recipe was successfully created!")
+                $scope.recipe = {};
+            }, function () {
+                alert("There was a problem adding your recipe.");
+            });
+        };
     }]);
