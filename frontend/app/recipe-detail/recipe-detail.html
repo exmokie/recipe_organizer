@@ -5,6 +5,11 @@
          class="img-responsive"
          ng-src="{{ recipe.photo }}">
 
+<div class="form-group">
+        <input type="file" id="file" name="file" accept="image/gif, image/x-png, image/jpeg"
+               onchange="angular.element(this).scope().addPhoto()"/>
+    </div>
+
 <br>
 <p ng-hide="editing">{{ recipe.description }}</p>
 <textarea ng-show="editing" ng-model="recipe.description"></textarea>

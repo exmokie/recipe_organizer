@@ -28,3 +28,25 @@
   content: "";
   padding: 0;
 }
+
+.site-foreground {
+    background-color: #dddddd;
+    margin-bottom: 20px;
+}
+
+.recipe-card {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: inherit;
+    padding-top: 1px;
+    margin-top: 30px;
+}
+
+.recipe-card-image {
+    width: 100%;
+    height: 200px;
+}
+
+.recipe-card-description {
+    margin-top: 15px
+}

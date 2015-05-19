@@ -6,9 +6,13 @@ angular.module('myApp', [
     'myApp.recipes',
     'myApp.recipeDetail',
     'myApp.addRecipe',
+    'myApp.auth',
+    'myApp.User',
     'myApp.version',
-    'restangular'
+    'restangular',
+
 ]).
+
     config(['$routeProvider', 'RestangularProvider', function ($routeProvider, RestangularProvider) {
         $routeProvider.otherwise({redirectTo: '/recipes'});
         RestangularProvider.setBaseUrl('http://localhost:8001');

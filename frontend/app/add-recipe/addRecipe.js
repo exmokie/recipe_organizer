@@ -30,6 +30,16 @@ angular.module('myApp.addRecipe', ['ngRoute'])
             }
         };
 
+        $scope.addPhoto = function () {
+            var file = document.getElementById('file').files[0],
+                reader = new FileReader();
+                reader.onload = function(e){
+                $scope.recipe.photo = 'data:image/png;base64,' + btoa(e.target.result);
+                $scope.$apply();
+            };
+                reader.readAsBinaryString(file);
+        };
+
         $scope.addRecipe = function () {
             Restangular.all('add-recipe').customPOST($scope.recipe).then(function (recipe) {
                 toastr.success("You successfully added the recipe!")
