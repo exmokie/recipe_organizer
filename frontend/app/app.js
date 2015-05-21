@@ -9,7 +9,7 @@ angular.module('myApp', [
     'myApp.auth',
     'myApp.User',
     'myApp.version',
-    'restangular',
+    'restangular'
 
 ]).
 
