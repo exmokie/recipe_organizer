@@ -107,7 +107,7 @@ MEDIA_ROOT = BASE_DIR + '/apps/recipes/media'
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = 'static'
+STATIC_ROOT = 'staticfiles'
 
 STATIC_URL = '/static/'
 
