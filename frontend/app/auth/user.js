@@ -2,33 +2,46 @@
 
 angular.module('myApp.User', [])
 
-    .service('User', function (Restangular, $q) {
+    .service('User', function (Restangular, $rootScope) {
         var user = {};
 
-        user.info = {
-            id: '',
-            name: ''
-        };
-        user.login = function (credentials) {
-            var deferred = $q.defer();
+        user.info = {};
 
-            Restangular.one(user.URLS.login).customPOST(credentials).then(function (data) {
-                user.info = data.user;
+        user.registration = function (user_info) {
+			return Restangular.one(user.urls.register_user).customPOST(user_info).then(function () {
+				return user.login(user_info);
+			});
+		};
 
-                deferred.resolve();
-            }, function (error) {
+		user.login = function (credentials) {
+			return Restangular.one(user.urls.get_token).customPOST(credentials).then(function (data) {
+				sessionStorage.setItem(user.token_name, data.token);
+				Restangular.setDefaultHeaders({Authorization: 'Token ' + data.token});
+				return user.getInfo();
+			});
+		};
 
-                deferred.reject(error)
+		user.getInfo = function () {
+			return Restangular.one(user.urls.get_user_info).customGET().then(function (data) {
+				user.info = data;
+				$rootScope.$broadcast(user.update_broadcast);
+			});
+		};
 
-            });
+		user.logout = function () {
+			user.info = {};
+			sessionStorage.removeItem(user.token_name);
+			Restangular.setDefaultHeaders({Authorization: ""});
+		};
 
-            return deferred.promise
-        };
-        user.urls = {
-            login: "/login",
-            logout: "/logout",
-            user: "/user"
-        };
+		// User constants
+		user.token_name = 'auth-token';
+		user.update_broadcast = 'user-updated';
+		user.urls = {
+			get_token: 'obtain-auth-token/',
+			get_user_info: 'get-user-info/',
+			register_user: 'register-user/'
+		};
         return user
     });
 
