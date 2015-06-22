@@ -29,6 +29,8 @@ angular.module('myApp', [
 			});
 		}
 
+        $scope.loggedin = true;
+
 		$scope.logout = function () {
 			User.logout();
 			$scope.user = null;
