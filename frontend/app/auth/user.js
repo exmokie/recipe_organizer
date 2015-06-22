@@ -17,6 +17,7 @@ angular.module('myApp.User', [])
 			return Restangular.one(user.urls.get_token).customPOST(credentials).then(function (data) {
 				sessionStorage.setItem(user.token_name, data.token);
 				Restangular.setDefaultHeaders({Authorization: 'Token ' + data.token});
+                $rootScope.loggedin=false;
 				return user.getInfo();
 			});
 		};
@@ -32,6 +33,7 @@ angular.module('myApp.User', [])
 			user.info = {};
 			sessionStorage.removeItem(user.token_name);
 			Restangular.setDefaultHeaders({Authorization: ""});
+            $rootScope.loggedin=true;
 		};
 
 		// User constants
